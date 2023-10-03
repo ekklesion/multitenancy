@@ -1,0 +1,31 @@
+version: "3.8"
+
+name: multitenancy
+
+services:
+  caddy:
+    image: ekklesion/multitenancy:dev
+    build:
+      context: .
+      dockerfile: .dev/docker/caddy/Dockerfile
+    ports: [ "80:80", "443:443" ]
+    restart: unless-stopped
+    working_dir: /myapp
+    depends_on:
+      fpm:
+        condition: service_started
+    volumes:
+      - .dev/docker/caddy/sites:/myapp/sites
+      - .dev/docker/caddy/Caddyfile:/etc/caddy/Caddyfile
+    command: [ "caddy", "run", "--config", "/etc/caddy/Caddyfile" ]
+
+  fpm:
+    image: ekklesion/fpm-test:dev
+    build:
+      context: .
+      dockerfile: .dev/docker/fpm/Dockerfile
+    restart: unless-stopped
+    working_dir: /php
+    command: [ "php-fpm81", "-F",  "-R" ]
+    volumes:
+      - .dev/docker/fpm/public:/php/public

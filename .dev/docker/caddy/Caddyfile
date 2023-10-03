@@ -1,0 +1,28 @@
+http://*.cloud.localhost {
+    @site {
+        site_info json+dir:/myapp/sites?watch=true
+    }
+
+    @enabled {
+        vars {site_info.status} enabled
+    }
+
+    @disabled {
+        vars {site_info.status} disabled
+    }
+
+    encode gzip
+
+    handle @site {
+        php_fastcgi @enabled fpm:9000 {
+            root /php/public
+            env APP_SECRET {myapp.env.app_secret}
+            env DATABASE_URL {myapp.env.db_url}
+            env MAILER_DSN {myapp.env.mailer}
+        }
+
+        error @disabled "Your site is disabled" 500
+    }
+
+    error "Not Found" 404
+}

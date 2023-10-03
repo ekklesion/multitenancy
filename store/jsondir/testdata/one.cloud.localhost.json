@@ -1,0 +1,14 @@
+{
+  "id": "one.cloud.localhost",
+  "status": "enabled",
+  "params": {
+    "ekklesion.tenant": "main",
+    "ekklesion.stack": "build",
+    "ekklesion.tag": "main",
+    "ekklesion.site.mode": "cloud",
+    "ekklesion.site.database": "pgsql://user:pass@host/database",
+    "ekklesion.site.secret": "72aebcf5b38e9045fb2e731870441ba0",
+    "ekklesion.site.kv_store": "pgsql://user:pass@host/database",
+    "ekklesion.site.mailer": "smtp://user:pass@server"
+  }
+}

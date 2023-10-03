@@ -1,0 +1,9 @@
+{
+  "id": "one",
+  "status": "enabled",
+  "params": {
+    "myapp.env.app_secret": "53ac8429bcda15edb0ca3c8f64212bbf",
+    "myapp.env.db_url": "pgsql://user:pass@example.com/one",
+    "myapp.env.mailer": "smtp://example.com"
+  }
+}
